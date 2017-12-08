@@ -4,7 +4,7 @@ import me.thrifleganger.alexa.constants.*;
 
 public class AlexaSsml {
 
-    private String ssml;
+    private final String ssml;
 
     private AlexaSsml(SsmlBuilder ssmlBuilder) {
         this.ssml = ssmlBuilder.ssml.toString();
@@ -12,6 +12,10 @@ public class AlexaSsml {
 
     public String getSsml() {
         return this.ssml;
+    }
+
+    public static SsmlBuilder builder() {
+        return new SsmlBuilder();
     }
 
     public static final class SsmlBuilder {
@@ -56,26 +60,61 @@ public class AlexaSsml {
             return this;
         }
 
-        public SsmlBuilder emphasize(final String speech) {
-            return emphasize(speech, Emphasis.DEFAULT);
+        public SsmlBuilder emphasize(final String word) {
+            return emphasize(word, Emphasis.DEFAULT);
         }
 
-        public SsmlBuilder emphasize(final String speech, final Emphasis emphasis) {
-            ssml.append(String.format(SsmlTag.EMPHASIS, emphasis.getValue(), speech))
+        public SsmlBuilder emphasize(final String word, final Emphasis emphasis) {
+            ssml.append(String.format(SsmlTag.EMPHASIS, emphasis.getValue(), word))
                     .append(SpeechConstants.SPACE);
             return this;
         }
 
-        public SsmlBuilder paragraph(final String speech) {
-            ssml.append(String.format(SsmlTag.PARAGRAPH, speech))
+        public SsmlBuilder paragraph(final String paragraph) {
+            ssml.append(String.format(SsmlTag.PARAGRAPH, paragraph))
                     .append(SpeechConstants.SPACE);
             return this;
         }
+
+        public SsmlBuilder sentence(final String sentence) {
+            ssml.append(String.format(SsmlTag.SENTENCE, sentence))
+                    .append(SpeechConstants.SPACE);
+            return this;
+        }
+
+        public SsmlBuilder sayAs(final String entity, final Interpreter interpreter) {
+            ssml.append(String.format(SsmlTag.SAY_AS, interpreter.getValue(), entity))
+                    .append(SpeechConstants.SPACE);
+            return this;
+        }
+
+        public SsmlBuilder sayAs(final String date, final Interpreter interpreter, final SsmlDateFormat dateFormat) {
+
+            if(interpreter.equals(Interpreter.DATE) && !dateFormat.equals(SsmlDateFormat.NONE)) {
+                ssml.append(String.format(SsmlTag.SAY_AS_FORMAT, dateFormat.getValue(), date))
+                        .append(SpeechConstants.SPACE);
+                return this;
+            } else {
+                return this.sayAs(date, interpreter);
+            }
+        }
+
+        public SsmlBuilder substitute(final String word, final String substituteWith) {
+            ssml.append(String.format(SsmlTag.SUB, substituteWith, word))
+                    .append(SpeechConstants.SPACE);
+            return this;
+        }
+
+        public SsmlBuilder pronounciate(final String word, final PartOfSpeech partOfSpeech) {
+            ssml.append(String.format(SsmlTag.WORD, partOfSpeech.getValue(), word))
+                    .append(SpeechConstants.SPACE);
+            return this;
+        }
+
 
         public AlexaSsml build() {
             ssml.append(SsmlTag.SPEAK_STOP);
             return new AlexaSsml(this);
         }
     }
-
 }
