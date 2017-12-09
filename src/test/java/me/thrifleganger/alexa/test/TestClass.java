@@ -1,7 +1,6 @@
 package me.thrifleganger.alexa.test;
 
 import me.thrifleganger.alexa.AlexaSsml;
-import me.thrifleganger.alexa.constants.Emphasis;
 import org.junit.Test;
 
 public class TestClass {

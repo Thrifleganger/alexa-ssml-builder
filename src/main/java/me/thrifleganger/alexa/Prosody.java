@@ -1,9 +1,10 @@
 
 package me.thrifleganger.alexa;
 
-import me.thrifleganger.alexa.constants.ProsodyPitch;
-import me.thrifleganger.alexa.constants.ProsodyRate;
-import me.thrifleganger.alexa.constants.ProsodyVolume;
+import me.thrifleganger.alexa.enumerations.ProsodyPitch;
+import me.thrifleganger.alexa.enumerations.ProsodyRate;
+import me.thrifleganger.alexa.enumerations.ProsodyVolume;
+import me.thrifleganger.alexa.validators.ProsodyValueConstrainer;
 
 public class Prosody {
 
@@ -33,9 +34,16 @@ public class Prosody {
         private String pitch;
         private String rate;
 
+        private ProsodyBuilder() {
+            this.volume = ProsodyVolume.DEFAULT.getValue();
+            this.pitch = ProsodyPitch.DEFAULT.getValue();
+            this.rate = ProsodyRate.DEFAULT.getValue();
+        }
+
         public ProsodyBuilder volume(final double volumeInDb) {
             this.volume = new StringBuilder()
-                    .append(Double.toString(volumeInDb))
+                    .append(ProsodyValueConstrainer.ifZeroOrPositive(volumeInDb) ? "+" : "")
+                    .append(Double.toString(ProsodyValueConstrainer.constrainVolumeLevel(volumeInDb)))
                     .append("dB")
                     .toString();
             return this;
@@ -48,7 +56,8 @@ public class Prosody {
 
         public ProsodyBuilder pitch(final double pitchInPercentage) {
             this.pitch = new StringBuilder()
-                    .append(Double.toString(pitchInPercentage))
+                    .append(ProsodyValueConstrainer.ifZeroOrPositive(pitchInPercentage) ? "+" : "")
+                    .append(Double.toString(ProsodyValueConstrainer.constrainPitchLevel(pitchInPercentage)))
                     .append("%")
                     .toString();
             return this;
@@ -61,7 +70,8 @@ public class Prosody {
 
         public ProsodyBuilder rate(final double rateInPercentage) {
             this.rate = new StringBuilder()
-                    .append(Double.toString(rateInPercentage))
+                    .append(ProsodyValueConstrainer.ifZeroOrPositive(rateInPercentage) ? "+" : "")
+                    .append(Double.toString(ProsodyValueConstrainer.constrainRateLevel(rateInPercentage)))
                     .append("%")
                     .toString();
             return this;

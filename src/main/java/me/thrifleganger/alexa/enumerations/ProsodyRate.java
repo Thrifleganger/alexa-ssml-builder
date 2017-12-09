@@ -1,4 +1,4 @@
-package me.thrifleganger.alexa.constants;
+package me.thrifleganger.alexa.enumerations;
 
 public enum ProsodyRate {
 
@@ -6,7 +6,8 @@ public enum ProsodyRate {
     SLOW("slow"),
     MEDIUM("medium"),
     FAST("fast"),
-    X_FAST("x-fast");
+    X_FAST("x-fast"),
+    DEFAULT("medium");
 
     private String value;
 

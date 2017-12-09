@@ -1,6 +1,7 @@
 package me.thrifleganger.alexa;
 
 import me.thrifleganger.alexa.constants.*;
+import me.thrifleganger.alexa.enumerations.*;
 
 public class AlexaSsml {
 
@@ -108,6 +109,22 @@ public class AlexaSsml {
         public SsmlBuilder pronounciate(final String word, final PartOfSpeech partOfSpeech) {
             ssml.append(String.format(SsmlTag.WORD, partOfSpeech.getValue(), word))
                     .append(SpeechConstants.SPACE);
+            return this;
+        }
+
+        public SsmlBuilder prosody(final String speech, final Prosody prosodyModel) {
+            ssml.append(String.format(
+                    SsmlTag.PROSODY,
+                    prosodyModel.getVolume(),
+                    prosodyModel.getPitch(),
+                    prosodyModel.getRate(),
+                    speech))
+                    .append(SpeechConstants.SPACE);
+            return this;
+        }
+
+        public SsmlBuilder custom(final String ssmlSnippet) {
+            ssml.append(ssmlSnippet);
             return this;
         }
 

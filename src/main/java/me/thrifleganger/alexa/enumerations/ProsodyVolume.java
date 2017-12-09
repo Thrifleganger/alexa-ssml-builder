@@ -1,4 +1,4 @@
-package me.thrifleganger.alexa.constants;
+package me.thrifleganger.alexa.enumerations;
 
 public enum ProsodyVolume {
 
@@ -7,7 +7,8 @@ public enum ProsodyVolume {
     SOFT("soft"),
     MEDIUM("medium"),
     LOUD("loud"),
-    X_LOUD("x-loud");
+    X_LOUD("x-loud"),
+    DEFAULT("medium");
 
     private String value;
 

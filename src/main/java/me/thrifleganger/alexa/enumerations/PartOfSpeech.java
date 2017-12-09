@@ -1,4 +1,4 @@
-package me.thrifleganger.alexa.constants;
+package me.thrifleganger.alexa.enumerations;
 
 public enum PartOfSpeech {
 

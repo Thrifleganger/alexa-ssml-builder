@@ -15,6 +15,7 @@ public final class SsmlTag {
     public static final String SAY_AS_FORMAT = "<say-as interpret-as=\"date\" format=\"%s\">%s</say-as>";
     public static final String SUB = "<sub alias=\"%s\">%s</sub>";
     public static final String WORD = "<w role=\"%s\">%s</w>";
+    public static final String PROSODY="<prosody volume=\"%s\" pitch=\"%s\" rate=\"%s\">%s</prosody>";
 
     public static final String EMPTY_ELEMENT_END = "\"/>";
 }

@@ -1,4 +1,4 @@
-package me.thrifleganger.alexa.constants;
+package me.thrifleganger.alexa.enumerations;
 
 public enum ProsodyPitch {
 
@@ -6,7 +6,8 @@ public enum ProsodyPitch {
     LOW("low"),
     MEDIUM("medium"),
     HIGH("high"),
-    X_HIGH("x-high");
+    X_HIGH("x-high"),
+    DEFAULT("medium");
 
     private String value;
 
